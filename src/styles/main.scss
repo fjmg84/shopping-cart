@@ -30,11 +30,14 @@ aside {
 }
 
 main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: $black;
-  height: 90%;
-  width: 70%;
+  height: auto;
+  width: 60vw;
   border-radius: 10px;
-  box-shadow: 0px 10px 20px black;
+  box-shadow: 0px 10px 20px $black;
   padding: 10px;
 }
 
