@@ -1,59 +1,85 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "../stores/store";
+import { productInitial } from "../data/products";
+import { ListProductState, ProductInOrder } from "../type/products";
 
-// Define a type for the slice state
-interface ProductState {
-  id: number;
-  image: undefined | string;
-  name: string;
-  price: number;
-  count: number;
+export const INITIAL_PRODUCT_SELECTED = {
+  id: 0,
+  image: undefined,
+  name: "",
+  price: 0,
+  inOrder: false,
+  pay: 0,
+  count: 0
 }
 
-// Define the initial state using that type
-const initialState: ProductState[] = [
-  {
-    id: 1,
-    image: undefined,
-    name: "Hamburguesa",
-    price: 12.0,
-    count: 0,
-  },
-  {
-    id: 2,
-    image: undefined,
-    name: "Shandwich Cubano",
-    price: 12.0,
-    count: 0,
-  },
-];
+const initialState: ListProductState = {
+  productSelected: INITIAL_PRODUCT_SELECTED,
+  productList: productInitial,
+  productsInOrder: [],
+};
 
 export const productsSlice = createSlice({
   name: "products",
   initialState,
-
   reducers: {
-    increment: (state, action) => {
-      state.filter(
-        (product) => product.id === action.payload && product.count++
+    selected: (state, action: PayloadAction<number>) => {
+      let { productsInOrder, productList } = state
+      const productId = action.payload
+
+      const productInOrder = productsInOrder.find(
+        ({ id }) => id === productId
+      );
+
+      if (productInOrder)
+        state.productSelected = productInOrder
+      else {
+        let productInList = productList.find(
+          ({ id }) => id === productId
+        );
+        if (productInList) {
+          state.productSelected = { ...productInList, pay: 0, count: 0 }
+        }
+      }
+    },
+
+    update: (state, action: PayloadAction<ProductInOrder>) => {
+      const product = action.payload
+      state.productSelected = { ...product }
+    },
+
+    remove: (state, action: PayloadAction<number>) => {
+      state.productsInOrder = state.productsInOrder.filter(
+        (product) => product.id !== action.payload
       );
     },
-    decrement: (state, action) => {
-      state.filter(
-        (product) =>
-          product.id === action.payload && product.count > 0 && product.count--
-      );
-    },
-    reset: (state, action) => {
-      state.map((product) =>
-        product.id === action.payload ? (product.count = 0) : product
-      );
+
+    addToOrder: (state) => {
+      const { productsInOrder, productSelected } = state
+
+      const { id } = productSelected
+
+      const productIndex = productsInOrder.findIndex((product) => product.id === id)
+
+      if (productIndex === -1) {
+        productSelected.inOrder = true
+        productsInOrder.push(productSelected)
+        state.productSelected = INITIAL_PRODUCT_SELECTED
+      }
+
+      productsInOrder[productIndex] = { ...productsInOrder[productIndex], ...productSelected }
+
     },
   },
 });
 
-export const { increment, decrement, reset } = productsSlice.actions;
+export const {
+  selected,
+  addToOrder,
+  remove,
+  update
+} = productsSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
 export const selectProduct = (state: RootState) => state.products;

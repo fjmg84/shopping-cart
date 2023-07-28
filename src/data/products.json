@@ -1,0 +1,72 @@
+[
+  {
+    "id": 1,
+    "image": "/images/hambuergesa.webp",
+    "name": "Hamburguesa",
+    "price": 8.1,
+    "inOrder": false
+  },
+  {
+    "id": 2,
+    "image": "/images/sandwich.jpg",
+    "name": "Shandwich Cubano",
+    "price": 7.5,
+    "inOrder": false
+  },
+  {
+    "id": 3,
+    "image": "/images/alitas-pollos.jpg",
+    "name": "Alitas de pollo",
+    "price": 12.0,
+    "inOrder": false
+  },
+  {
+    "id": 4,
+    "image": "/images/cafe.jpeg",
+    "name": "Taza de cafe",
+    "price": 2.25,
+    "inOrder": false
+  },
+  {
+    "id": 5,
+    "image": "/images/croquetas.jpeg",
+    "name": "Croquetas de pollo",
+    "price": 6.25,
+    "inOrder": false
+  },
+  {
+    "id": 6,
+    "image": "/images/helados.jpg",
+    "name": "Helados",
+    "price": 3.75,
+    "inOrder": false
+  },
+  {
+    "id": 7,
+    "image": "/images/jugos.jpg",
+    "name": "Jugos",
+    "price": 1.25,
+    "inOrder": false
+  },
+  {
+    "id": 8,
+    "image": "/images/papas.jpg",
+    "name": "Papas fritas",
+    "price": 1.5,
+    "inOrder": false
+  },
+  {
+    "id": 9,
+    "image": "/images/Refrescos_Lata.jpg",
+    "name": "Refrescos (lata)",
+    "price": 1.75,
+    "inOrder": false
+  },
+  {
+    "id": 10,
+    "image": "/images/Refrescos_Pomo_Grande.jpg",
+    "name": "Refrescos (pomo)",
+    "price": 3.25,
+    "inOrder": false
+  }
+]

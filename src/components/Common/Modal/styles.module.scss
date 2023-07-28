@@ -1,0 +1,60 @@
+@import "../../../styles/colors";
+
+.toast {
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  right: 0%;
+  bottom: 0%;
+  height: 100vh;
+  background-color: #333333cd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5%;
+}
+
+.toast_container {
+  background-color: $gray;
+  border-radius: 5px;
+  box-shadow: 0px 5px 20px $black;
+  color: $black;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: column;
+  width: 320px;
+  height: 200px;
+  padding: 2%;
+}
+
+.toast_title {
+  text-align: center;
+}
+
+.toast_btn {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 2%;
+  width: 100%;
+}
+
+.accept,
+.cancel {
+  padding: 15px 25px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.5s ease;
+  opacity: 1;
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.accept {
+  background-color: green;
+}
+
+.cancel {
+  background-color: $red;
+}

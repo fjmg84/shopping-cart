@@ -1,0 +1,52 @@
+@import "../../../styles/colors";
+
+.container {
+  align-items: center;
+  background-color: $tomato;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+  width: 100%;
+}
+
+.product {
+  position: relative;
+  background-color: $gray;
+  border-radius: 10px;
+  box-shadow: 0px 2px 5px $black;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height: auto;
+  margin: 2%;
+  padding: 2%;
+  width: auto;
+}
+
+.btn__container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.btn {
+  background-color: transparent;
+  transition: all 0.5s ease;
+  &:hover {
+    background-color: aliceblue;
+    border-radius: 50px;
+  }
+}
+
+.btn__return,
+.btn__add {
+  height: 30px;
+  width: 30px;
+  padding: 10px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+}
