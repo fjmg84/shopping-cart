@@ -34,47 +34,40 @@ const Cart = () => {
     dispatch(remove(id));
   };
 
-  const handleSendOrder = () => {
-    console.log("Send Order");
-  };
-
   return (
     <>
       <div className={styles.car}>
-        <div className={styles.order}>
-          {productsInOrder.map((product, item) => {
-            const { id, name, count, pay, image } = product;
-            return (
-              <div
-                key={item}
-                className={`${styles.order_container} order_${id}`}
-              >
-                <Button
-                  handleFunction={() => handlePortal(id)}
-                  className={styles.order_close}
+        <div className={styles.car__container}>
+          <div className={styles.order}>
+            {productsInOrder.map((product, item) => {
+              const { id, name, count, pay, image } = product;
+              return (
+                <div
+                  key={item}
+                  className={`${styles.order_container} order_${id}`}
                 >
-                  <img src="/svg/close.svg" alt="/svg/close.svg" />
-                </Button>
+                  <Button
+                    handleFunction={() => handlePortal(id)}
+                    className={styles.order_close}
+                  >
+                    <img src="/svg/close.svg" alt="/svg/close.svg" />
+                  </Button>
 
-                <div className={styles.order_image}>
-                  <span className={styles.order_count}>{count}</span>
-                  <Image src={image} alt={name} />
+                  <div className={styles.order_image}>
+                    <span className={styles.order_count}>{count}</span>
+                    <Image src={image} alt={name} />
+                  </div>
+                  <p className={styles.order_to_pay}>${pay}</p>
                 </div>
-                <p className={styles.order_to_pay}>${pay}</p>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
 
-        <div>
-          {/* <div className="sendOrder">
-          <Button text="send order" handleFunction={handleSendOrder} />
-        </div> */}
-          <div className={styles.toPay}>
-            <h4>
-              to pay: <small>${totalToPay}</small>
-            </h4>
-          </div>
+        <div className={styles.toPay}>
+          <h4>
+            to pay: <small>${totalToPay}</small>
+          </h4>
         </div>
       </div>
 
