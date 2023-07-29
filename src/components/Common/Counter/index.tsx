@@ -1,9 +1,9 @@
+import { useAppDispatch, useAppSelector } from "../../../redux/stores/hooks";
 import Button from "../Buttons";
 import useCounter from "../../../hooks/useCounter";
 import styles from "./styles.module.scss";
-import { useAppDispatch, useAppSelector } from "../../../stores/hooks";
 import { useEffect } from "react";
-import { update } from "../../../slices/productSlice";
+import { update } from "../../../redux/slices/productSlice";
 
 const Counter = ({ count = 0, price = 0 }) => {
   const { counter, increment, reset, decrement } = useCounter({ count });

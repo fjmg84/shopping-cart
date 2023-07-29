@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import { useAppDispatch, useAppSelector } from "../../stores/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/stores/hooks";
 import Image from "../Common/Image";
 import Button from "../Common/Buttons";
-import { remove } from "../../slices/productSlice";
+import { remove } from "../../redux/slices/productSlice";
 import Modal from "../Common/Modal";
 import styles from "./styles.module.scss";
 

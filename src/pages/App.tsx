@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { useAppSelector } from "../stores/hooks";
 import ListProduct from "../components/Products/List";
 import Cart from "../components/Cart";
+import { useAppSelector } from "../redux/stores/hooks";
 
 const App = () => {
   const [products, setProducts] = useState<typeof productList>([]);

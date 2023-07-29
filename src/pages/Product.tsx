@@ -1,9 +1,9 @@
-import { useAppDispatch, useAppSelector } from "../stores/hooks";
+import { useAppDispatch, useAppSelector } from "../redux/stores/hooks";
 import ShowProduct from "../components/Products/Show";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { ProductInOrder } from "../type/products";
-import { selected } from "../slices/productSlice";
+import { selected } from "../redux/slices/productSlice";
 import Error from "../components/Common/Error404";
 
 function Product() {

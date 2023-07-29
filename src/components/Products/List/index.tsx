@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import Button from "../../Common/Buttons";
 import Image from "../../Common/Image";
-import { ProductState } from "../../../type/products";
 import Text from "../../Common/Text";
-import { useAppDispatch } from "../../../stores/hooks";
-import { remove } from "../../../slices/productSlice";
+import { ProductState } from "../../../type/products";
+import { useAppDispatch } from "../../../redux/stores/hooks";
+import { remove } from "../../../redux/slices/productSlice";
 import styles from "./styles.module.scss";
 
 const ListProduct = ({ products }: { products: ProductState[] }) => {

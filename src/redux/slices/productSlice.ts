@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "../stores/store";
-import { productInitial } from "../data/products";
-import { ListProductState, ProductInOrder } from "../type/products";
+import { productInitial } from "../../data/products";
+import { ListProductState, ProductInOrder } from "../../type/products";
 
 export const INITIAL_PRODUCT_SELECTED = {
   id: 0,

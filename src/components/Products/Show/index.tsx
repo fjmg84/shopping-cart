@@ -1,11 +1,11 @@
+import { useAppDispatch, useAppSelector } from "../../../redux/stores/hooks";
 import { createPortal } from "react-dom";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../../Common/Buttons";
 import Modal from "../../Common/Modal";
 import ProductCard from "../Card";
-import { useAppDispatch, useAppSelector } from "../../../stores/hooks";
-import { addToOrder } from "../../../slices/productSlice";
+import { addToOrder } from "../../../redux/slices/productSlice";
 import styles from "./styles.module.scss";
 
 const ShowProduct = () => {
