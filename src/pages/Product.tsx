@@ -6,6 +6,7 @@ import { ProductCart } from "../type/products";
 import Error from "../components/Common/Error404";
 import { useGetProductByIdQuery } from "../redux/queries/products";
 import { selected } from "../redux/slices/productSlice";
+import Loading from "../components/Common/Loading";
 
 function Product() {
   const [newProduct, setNewProduct] = useState<ProductCart>();
@@ -26,7 +27,7 @@ function Product() {
     }
   }, [product]);
 
-  if (isLoading) return <label>Loading...</label>;
+  if (isLoading) return <Loading />;
 
   if (isError) return <Error message="Product not found" error={404} />;
 

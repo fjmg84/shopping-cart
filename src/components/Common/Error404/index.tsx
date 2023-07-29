@@ -4,7 +4,7 @@ import styles from "./styles.module.scss";
 
 type Props = {
   message: string;
-  error: number;
+  error?: number;
   children?: JSX.Element;
 };
 
@@ -12,7 +12,7 @@ function Error({ message, error, children }: Props) {
   const navigate = useNavigate();
   return (
     <div className={styles.container}>
-      <h1>{`{${error}}`}</h1>
+      {error && <h1>{`{${error}}`}</h1>}
       <h4>{message}</h4>
       {children}
 
