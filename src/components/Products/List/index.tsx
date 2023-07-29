@@ -43,9 +43,12 @@ const ListProduct = ({ products }: Props) => {
                 <Image src={image} alt={title} />
               </div>
             </div>
-            <Text text={title} myClassName={styles.title} />
-            <Text text={description} />
-            <Text text={`$ ${price}`} myClassName={styles.price} />
+
+            <div className={styles.texts}>
+              <Text text={title} myClassName={styles.title} />
+              <Text text={description} myClassName={styles.description} />
+              <Text text={`$ ${price}`} myClassName={styles.price} />
+            </div>
 
             {count && count > 0 ? (
               <div className={styles.btn}>
