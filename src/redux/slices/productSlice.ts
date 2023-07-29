@@ -1,74 +1,55 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "../stores/store";
-import { productInitial } from "../../data/products";
-import { ListProductState, ProductInOrder } from "../../type/products";
+import { ListProductState, ProductCart } from "../../type/products";
 
 export const INITIAL_PRODUCT_SELECTED = {
   id: 0,
-  image: undefined,
-  name: "",
+  title: "",
   price: 0,
-  inOrder: false,
-  pay: 0,
+  description: "",
+  category: "",
+  image: "",
+  rating: {
+    rate: 0, count: 0
+  },
   count: 0
 }
 
 const initialState: ListProductState = {
-  productSelected: INITIAL_PRODUCT_SELECTED,
-  productList: productInitial,
-  productsInOrder: [],
+  product: INITIAL_PRODUCT_SELECTED,
+  cart: [],
 };
 
 export const productsSlice = createSlice({
   name: "products",
   initialState,
   reducers: {
-    selected: (state, action: PayloadAction<number>) => {
-      let { productsInOrder, productList } = state
-      const productId = action.payload
-
-      const productInOrder = productsInOrder.find(
-        ({ id }) => id === productId
-      );
-
-      if (productInOrder)
-        state.productSelected = productInOrder
-      else {
-        let productInList = productList.find(
-          ({ id }) => id === productId
-        );
-        if (productInList) {
-          state.productSelected = { ...productInList, pay: 0, count: 0 }
-        }
-      }
+    selected: (state, action: PayloadAction<ProductCart>) => {
+      state.product = { ...action.payload }
     },
 
-    update: (state, action: PayloadAction<ProductInOrder>) => {
+    update: (state, action: PayloadAction<ProductCart>) => {
       const product = action.payload
-      state.productSelected = { ...product }
+      state.product = { ...product }
     },
 
     remove: (state, action: PayloadAction<number>) => {
-      state.productsInOrder = state.productsInOrder.filter(
+      state.cart = state.cart.filter(
         (product) => product.id !== action.payload
       );
     },
 
     addToOrder: (state) => {
-      const { productsInOrder, productSelected } = state
+      const { cart, product } = state
 
-      const { id } = productSelected
+      const { id, count } = product
 
-      const productIndex = productsInOrder.findIndex((product) => product.id === id)
+      const newCart = cart.filter((product) => product.id !== id)
 
-      if (productIndex === -1) {
-        productSelected.inOrder = true
-        productsInOrder.push(productSelected)
-        state.productSelected = INITIAL_PRODUCT_SELECTED
-      }
-
-      productsInOrder[productIndex] = { ...productsInOrder[productIndex], ...productSelected }
+      if (count && count > 0) {
+        state.cart = [...newCart, product]
+      } else state.cart = [...newCart]
 
     },
   },

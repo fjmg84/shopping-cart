@@ -1,22 +1,21 @@
 import { useAppDispatch, useAppSelector } from "../../../redux/stores/hooks";
+import { useEffect } from "react";
 import Button from "../Buttons";
 import useCounter from "../../../hooks/useCounter";
-import styles from "./styles.module.scss";
-import { useEffect } from "react";
 import { update } from "../../../redux/slices/productSlice";
+import styles from "./styles.module.scss";
 
-const Counter = ({ count = 0, price = 0 }) => {
+const Counter = ({ count, price }: { count: number; price: number }) => {
+  const { product } = useAppSelector((state) => state.products);
   const { counter, increment, reset, decrement } = useCounter({ count });
-  const { productSelected } = useAppSelector((state) => state.products);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (productSelected)
+    if (product)
       dispatch(
         update({
-          ...productSelected,
+          ...product,
           count: counter,
-          pay: counter * price,
         })
       );
   }, [counter]);

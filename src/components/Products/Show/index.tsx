@@ -1,66 +1,63 @@
+import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../redux/stores/hooks";
-import { createPortal } from "react-dom";
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Button from "../../Common/Buttons";
-import Modal from "../../Common/Modal";
 import ProductCard from "../Card";
 import { addToOrder } from "../../../redux/slices/productSlice";
+import { ProductCart } from "../../../type/products";
 import styles from "./styles.module.scss";
 
-const ShowProduct = () => {
-  const [confirmed, setConfirmed] = useState(false);
-
-  const { productSelected } = useAppSelector((state) => state.products);
-
+type Props = {
+  product: ProductCart | undefined;
+};
+const ShowProduct = ({ product }: Props) => {
+  const [newProduct, setNewProduct] = useState<ProductCart>();
+  const { cart } = useAppSelector((state) => state.products);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const productFind = cart.find(({ id }) => id === product?.id);
+    if (productFind) return setNewProduct(productFind);
+
+    setNewProduct(product);
+  }, [product]);
+
   const handleAddToOrder = () => {
     dispatch(addToOrder());
-    navigate("/");
   };
-
-  const handleModal = () => setConfirmed(true);
 
   return (
     <>
-      {productSelected ? (
-        <div className={styles.container}>
-          <div className={styles.product}>
-            <ProductCard {...productSelected} />
+      {newProduct && (
+        <>
+          <div className={styles.container}>
+            <div className={styles.product}>
+              <ProductCard product={newProduct} />
 
-            <div className={styles.btn__container}>
-              <Button
-                className={styles.btn}
-                handleFunction={() => navigate("/")}
-              >
-                <img
-                  className={styles.btn__return}
-                  src="/svg/left.svg"
-                  alt="return"
-                />
-              </Button>
+              <div className={styles.btn__container}>
+                <Button
+                  className={styles.btn}
+                  handleFunction={() => navigate("/")}
+                >
+                  <img
+                    className={styles.btn__return}
+                    src="/svg/left.svg"
+                    alt="return"
+                  />
+                </Button>
 
-              <Button className={styles.btn} handleFunction={handleModal}>
-                <img src="/svg/accept.svg" className={styles.btn__add} />
-              </Button>
+                <Button
+                  className={styles.btn}
+                  handleFunction={handleAddToOrder}
+                >
+                  <img src="/svg/accept.svg" className={styles.btn__add} />
+                </Button>
+              </div>
             </div>
           </div>
-        </div>
-      ) : (
-        <h2>Product not found</h2>
+        </>
       )}
-
-      {confirmed &&
-        createPortal(
-          <Modal
-            handleAccept={handleAddToOrder}
-            handleCancel={() => setConfirmed(false)}
-            question="Do you want to add products to the order?"
-          />,
-          document.body
-        )}
     </>
   );
 };

@@ -1,34 +1,36 @@
-import { useAppDispatch, useAppSelector } from "../redux/stores/hooks";
+import { useAppDispatch } from "../redux/stores/hooks";
 import ShowProduct from "../components/Products/Show";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { ProductInOrder } from "../type/products";
-import { selected } from "../redux/slices/productSlice";
+import { ProductCart } from "../type/products";
 import Error from "../components/Common/Error404";
+import { useGetProductByIdQuery } from "../redux/queries/products";
+import { selected } from "../redux/slices/productSlice";
 
 function Product() {
-  const [product, setProduct] = useState<ProductInOrder>();
-  const { productList } = useAppSelector((state) => state.products);
-  const dispatch = useAppDispatch();
+  const [newProduct, setNewProduct] = useState<ProductCart>();
   const { productId } = useParams();
+  const {
+    data: product,
+    isLoading,
+    isError,
+  } = useGetProductByIdQuery(productId);
+
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (productId) {
-      const isProduct = productList.find(({ id }) => id === +productId);
-
-      if (isProduct) {
-        const { id } = isProduct;
-        dispatch(selected(id));
-        setProduct({ ...isProduct, pay: 0, count: 0 });
-      }
+    if (product) {
+      const prod = { ...product, count: 0 };
+      setNewProduct(prod);
+      dispatch(selected(prod));
     }
-  }, [productId]);
+  }, [product]);
 
-  return product ? (
-    <ShowProduct />
-  ) : (
-    <Error message="Product not found" error={404} />
-  );
+  if (isLoading) return <label>Loading...</label>;
+
+  if (isError) return <Error message="Product not found" error={404} />;
+
+  return <ShowProduct product={newProduct} />;
 }
 
 export default Product;

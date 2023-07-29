@@ -1,18 +1,21 @@
 export interface ProductState {
     id: number;
-    image: undefined | string;
-    name: string;
+    title: string;
     price: number;
-    inOrder: boolean
+    description: string;
+    category: string;
+    image: string;
+    rating: {
+        rate: number;
+        count: number;
+    };
 }
 
-export interface ProductInOrder extends ProductState {
-    pay?: number;
-    count?: number;
+export interface ProductCart extends ProductState {
+    count: number;
 }
 
-interface ListProductState {
-    productSelected: ProductInOrder;
-    productList: ProductState[];
-    productsInOrder: ProductInOrder[];
+export interface ListProductState {
+    product: ProductCart;
+    cart: ProductCart[];
 }

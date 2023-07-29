@@ -1,17 +1,20 @@
-import { ProductInOrder } from "../../../type/products";
+import { ProductCart } from "../../../type/products";
 import Counter from "../../Common/Counter";
 import Image from "../../Common/Image";
 import Text from "../../Common/Text";
 import styles from "./styles.module.scss";
 
-function ProductCard(props: ProductInOrder) {
-  const { name, count, price, image } = props;
+type Props = {
+  product: ProductCart;
+};
+function ProductCard({ product }: Props) {
+  const { title, price, image, count } = product;
 
   return (
     <div className={styles.container}>
-      <Image className={styles.image} src={image} alt={name} />
+      <Image className={styles.image} src={image} alt={image} />
 
-      <Text text={name} myClassName={styles.title} />
+      <Text text={title} myClassName={styles.title} />
 
       <Text text={`$ ${price}`} myClassName={styles.price} />
 
