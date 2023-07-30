@@ -1,6 +1,4 @@
 interface PropButton {
-  text?: string;
-  img?: string;
   className?: string;
   styleImage?: string;
   children: JSX.Element;
@@ -17,5 +15,4 @@ function Button({ className, children, handleFunction }: PropButton) {
   );
 }
 
-//{img ? <img className={styleImage} src={img} alt={text} /> : text}
 export default Button;

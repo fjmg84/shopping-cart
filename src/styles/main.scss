@@ -41,10 +41,18 @@ main {
 }
 
 section {
-  margin: 3% 0;
+  margin: 10px 0 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
   h1 {
     color: $tomato;
     font-size: 2em;
+  }
+  p {
+    font-size: 1em;
+    color: $gray;
   }
 }
 

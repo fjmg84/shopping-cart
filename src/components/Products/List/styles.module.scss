@@ -1,107 +1,132 @@
 @import "../../../styles/colors";
 
 .container {
-  overflow: hidden;
-  overflow-y: scroll;
   display: flex;
   flex-wrap: wrap;
+  height: 100vh;
+  width: 100%;
   justify-content: center;
-  height: 100%;
+  align-items: stretch;
+  flex-direction: row;
+  overflow: hidden;
+}
+
+.container__product {
+  height: 80%;
+  width: 100%;
+  overflow: hidden;
+  overflow-y: scroll;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
 .product {
   background-color: gainsboro;
   border-radius: 10px;
+  align-items: center;
+  border-radius: 10px;
   color: black;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  margin: 10px;
-  width: 300px;
-  height: 300px;
+  height: 400px;
+  margin: 5px;
   transition: all 0.5s ease;
-  &:hover {
-    box-shadow: 5px 5px 20px gray;
-    border-radius: 0px;
-  }
+  width: 300px;
+  overflow: hidden;
 }
 
-.image {
+.product__header {
   background-color: white;
-  border-top-right-radius: 10px;
-  border-top-left-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  height: 160px;
+  position: relative;
   width: 100%;
-  height: 200px;
-  div {
-    position: relative;
-    overflow: hidden;
+  padding: 10px 0;
+
+  .image {
+    align-items: center;
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    width: 100%;
     img {
+      height: 100%;
       width: auto;
-      height: 100px;
     }
   }
-}
 
-.btn {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  margin: 10px 0;
-  width: 100%;
-  a {
-    display: flex;
+  .price {
     align-items: center;
-    justify-content: center;
-    text-decoration: none;
-  }
-
-  button,
-  a {
-    border: none;
+    background-color: $red;
+    border-bottom: 1px solid $black;
+    border-radius: 50%;
+    bottom: -20px;
     color: white;
-    cursor: pointer;
-    width: 100px;
-    height: 30px;
+    display: flex;
+    height: 50px;
+    justify-content: center;
+    padding: 2px;
+    padding: 2%;
+    position: absolute;
+    right: 15px;
+    width: 50px;
+    box-shadow: 0px 2px 5px $black;
+  }
+
+  .rate {
+    position: absolute;
+    bottom: -30px;
+    left: 10px;
   }
 }
 
-.btn_add {
-  border-radius: 25px;
-  background: linear-gradient(tomato, orange);
-}
-
-.btn_remove {
-  border-radius: 25px;
-  background: linear-gradient(tomato, $red);
-}
-
-.texts {
+.product__footer {
+  width: 95%;
+  height: 100px;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 15px 0;
+  border-top: 1px solid gray;
+
+  .btn {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin: 5px 0;
+    width: 90px;
+    height: 40px;
+    border-radius: 25px;
+    color: white;
+    text-transform: capitalize;
+    cursor: pointer;
+    transition: all 0.5s ease;
+    background-color: $tomato;
+  }
+}
+
+.product__body {
+  align-items: center;
+  display: flex;
   flex-direction: column;
-  width: 90%;
-  padding: 2%;
   gap: 10px;
-}
+  justify-content: center;
+  width: 95%;
+  height: 100%;
 
-.title {
-  text-align: center;
-  width: 100%;
-}
-.price {
-  color: $black;
-  padding: 2px;
-  border-bottom: 1px solid $black;
-}
+  .title {
+    text-align: center;
+    width: 100%;
+    color: $black;
+  }
 
-.description {
-  text-align: center;
-  width: 100%;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+  .description {
+    color: $black;
+    overflow: hidden;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+  }
 }
