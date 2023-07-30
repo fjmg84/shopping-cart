@@ -8,6 +8,7 @@ import Text from "../../Common/Text";
 import { remove } from "../../../redux/slices/productSlice";
 import { createListOutDuplicate } from "../../../services/funtion";
 import styles from "./styles.module.scss";
+import Rate from "../../Common/Rate";
 
 type Props = {
   products: ProductState[] | undefined;
@@ -34,53 +35,59 @@ const ListProduct = ({ products }: Props) => {
 
   return (
     <div className={styles.container}>
-      {productsList.map((product) => {
-        const { id, title, price, description, image, count } = product;
-        return (
-          <div key={id} className={styles.product}>
-            <div className={styles.image}>
-              <div>
-                <Image src={image} alt={title} />
-              </div>
-            </div>
+      <section>Filter</section>
 
-            <div className={styles.texts}>
-              <Text text={title} myClassName={styles.title} />
-              <Text text={description} myClassName={styles.description} />
-              <Text text={`$ ${price}`} myClassName={styles.price} />
-            </div>
-
-            {count && count > 0 ? (
-              <div className={styles.btn}>
-                <Button
-                  className={styles.btn_add}
-                  handleFunction={() => navigate(`product/${id}`)}
-                >
-                  <span>edit</span>
-                </Button>
-
-                <Button
-                  className={styles.btn_remove}
-                  handleFunction={() => removeProductOfCart(id)}
-                >
-                  <span>remove</span>
-                </Button>
-              </div>
-            ) : (
-              <div className={styles.btn}>
-                <div>
-                  <Button
-                    className={styles.btn_add}
-                    handleFunction={() => navigate(`product/${id}`)}
-                  >
-                    <span>add</span>
-                  </Button>
+      <section className={styles.container__product}>
+        {productsList.map((product) => {
+          const { id, title, price, description, image, count, rating } =
+            product;
+          return (
+            <article key={id} className={styles.product}>
+              <div className={styles.product__header}>
+                <div className={styles.image}>
+                  <Image src={image} alt={title} />
+                </div>
+                <Text text={`$${price}`} myClassName={styles.price} />
+                <div className={styles.rate}>
+                  <Rate count={rating.rate} />
                 </div>
               </div>
-            )}
-          </div>
-        );
-      })}
+
+              <div className={styles.product__body}>
+                <Text text={title} myClassName={styles.title} />
+                <Text text={description} myClassName={styles.description} />
+              </div>
+
+              <div className={styles.product__footer}>
+                {count && count > 0 ? (
+                  <>
+                    <Button
+                      className={`${styles.btn} ${styles.btn_add}`}
+                      handleFunction={() => navigate(`product/${id}`)}
+                    >
+                      <span>edit</span>
+                    </Button>
+
+                    <Button
+                      className={`${styles.btn} ${styles.btn_remove}`}
+                      handleFunction={() => removeProductOfCart(id)}
+                    >
+                      <span>remove</span>
+                    </Button>
+                  </>
+                ) : (
+                  <Button
+                    className={`${styles.btn} ${styles.btn_add}`}
+                    handleFunction={() => navigate(`product/${id}`)}
+                  >
+                    <span>view</span>
+                  </Button>
+                )}
+              </div>
+            </article>
+          );
+        })}
+      </section>
     </div>
   );
 };
