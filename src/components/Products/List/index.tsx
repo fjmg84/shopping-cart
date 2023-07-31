@@ -7,8 +7,8 @@ import Image from "../../Common/Image";
 import Text from "../../Common/Text";
 import { remove } from "../../../redux/slices/productSlice";
 import { createListOutDuplicate } from "../../../services/funtion";
-import styles from "./styles.module.scss";
 import Rate from "../../Common/Rate";
+import styles from "./styles.module.scss";
 
 type Props = {
   products: ProductState[] | undefined;
@@ -35,8 +35,6 @@ const ListProduct = ({ products }: Props) => {
 
   return (
     <div className={styles.container}>
-      <section>Filter</section>
-
       <section className={styles.container__product}>
         {productsList.map((product) => {
           const { id, title, price, description, image, count, rating } =

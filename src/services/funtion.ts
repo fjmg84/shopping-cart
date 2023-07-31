@@ -34,3 +34,31 @@ export const totalImportToPay = (arr: ProductCart[] = []) => {
 
     return total;
 };
+
+
+export const createListCategories = (arrProducts: ProductState[]) => {
+    let listCategories: Set<string> = new Set();
+
+    if (arrProducts.length === 0) return;
+
+    for (let { category } of arrProducts) listCategories.add(category);
+
+    let categories: string[] = [];
+    for (const item of listCategories) {
+        categories.push(item);
+    }
+
+    return categories;
+};
+
+
+export const orderArray = ({ arr = [], field = "", order = "<" }) => {
+    if (order === ">")
+        return arr.sort((a, b) =>
+            field ? (a[field] > b[field] ? -1 : 1) : a > b ? -1 : 1
+        );
+    else
+        return arr.sort((a, b) =>
+            field ? (a[field] < b[field] ? -1 : 1) : a < b ? -1 : 1
+        );
+};

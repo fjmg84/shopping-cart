@@ -46,6 +46,19 @@ section {
   align-items: center;
   justify-content: center;
   flex-direction: column;
+}
+
+footer {
+  padding: 2%;
+  text-align: center;
+}
+
+.header {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 2%;
+  width: 100%;
+
   h1 {
     color: $tomato;
     font-size: 2em;
@@ -54,9 +67,4 @@ section {
     font-size: 1em;
     color: $gray;
   }
-}
-
-footer {
-  padding: 2%;
-  text-align: center;
 }
