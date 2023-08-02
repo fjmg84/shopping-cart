@@ -7,6 +7,7 @@ import Error from "../components/Common/Error404";
 import { useGetProductByIdQuery } from "../redux/queries/products";
 import { selected } from "../redux/slices/productSlice";
 import Loading from "../components/Common/Loading";
+//import product from "../data/data.json";
 
 function Product() {
   const [newProduct, setNewProduct] = useState<ProductCart>();

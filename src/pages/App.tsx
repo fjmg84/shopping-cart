@@ -13,12 +13,12 @@ import { ProductState } from "../type/products";
 
 const App = () => {
   const {
-    data: products,
+    data: products = [],
     isLoading,
     isError,
     isSuccess,
   } = useGetProductsQuery();
-  const [listProducts, setListProducts] = useState<ProductState[]>([]);
+  const [listProducts, setListProducts] = useState<ProductState[]>(products);
   const dispatch = useAppDispatch();
   const {
     categories: { select: filterCategory },
@@ -26,7 +26,7 @@ const App = () => {
   } = useAppSelector((state) => state.filters);
 
   useEffect(() => {
-    if (products) setListProducts(products);
+    if (isSuccess) setListProducts(products);
   }, [isSuccess]);
 
   useEffect(() => {
