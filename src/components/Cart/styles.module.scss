@@ -77,15 +77,15 @@
   display: flex;
   align-items: baseline;
   padding: 2%;
+  overflow: hidden;
+  overflow-y: auto;
 }
 
 .order {
   align-items: center;
   display: flex;
   height: auto;
-  justify-content: flex-start;
-  overflow: hidden;
-  overflow-y: auto;
+  justify-content: center;
   padding: 2%;
   width: 100%;
   flex-wrap: wrap;
@@ -197,8 +197,13 @@
   }
 }
 
-@media (max-width: 475px) {
+@media (max-width: 600px) {
   .car {
-    top: 21%;
+    margin: 20px;
+    height: 80%;
+  }
+
+  .car__container {
+    padding: 10%;
   }
 }

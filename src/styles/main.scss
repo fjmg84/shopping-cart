@@ -25,8 +25,9 @@ aside {
   justify-content: center;
   padding: 1%;
   width: 20%;
-  height: 90%;
+  height: 95%;
   z-index: 100;
+  transition: all 0.5s ease;
 }
 
 main {
@@ -66,5 +67,36 @@ footer {
   p {
     font-size: 1em;
     color: $gray;
+  }
+}
+
+.menu {
+  display: none;
+  background-color: white;
+  height: 50px;
+  width: 50px;
+  border-radius: 100px;
+  transition: all 0.5s ease;
+}
+
+.visible {
+  left: 0%;
+  width: 200px;
+  height: 100%;
+}
+
+@media (max-width: 600px) {
+  aside {
+    background-color: $black;
+    left: -100%;
+    position: absolute;
+  }
+
+  .menu {
+    display: block;
+    position: absolute;
+    z-index: 1000;
+    top: 10px;
+    left: 10px;
   }
 }
