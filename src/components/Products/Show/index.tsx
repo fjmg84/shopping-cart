@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../../redux/stores/hooks";
-import { useNavigate } from "react-router-dom";
-import Button from "../../Common/Buttons";
+import { useAppSelector } from "../../../redux/stores/hooks";
+import { Link } from "react-router-dom";
 import ProductCard from "../Card";
-import { addToOrder } from "../../../redux/slices/productSlice";
 import { ProductCart } from "../../../type/products";
 import styles from "./styles.module.scss";
 
@@ -13,8 +11,6 @@ type Props = {
 const ShowProduct = ({ product }: Props) => {
   const [newProduct, setNewProduct] = useState<ProductCart>();
   const { cart } = useAppSelector((state) => state.products);
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
 
   useEffect(() => {
     const productFind = cart.find(({ id }) => id === product?.id);
@@ -23,37 +19,19 @@ const ShowProduct = ({ product }: Props) => {
     setNewProduct(product);
   }, [product]);
 
-  const handleAddToOrder = () => {
-    dispatch(addToOrder());
-  };
-
   return (
     <>
       {newProduct && (
         <>
           <div className={styles.container}>
+            <div className={styles.container__to__back}>
+              <Link className={styles.link__to__back} to="/">
+                <i className="fa fa-arrow-left"></i>
+              </Link>
+              Back to home
+            </div>
             <div className={styles.product}>
               <ProductCard product={newProduct} />
-
-              <div className={styles.btn__container}>
-                <Button
-                  className={styles.btn}
-                  handleFunction={() => navigate("/")}
-                >
-                  <img
-                    className={styles.btn__return}
-                    src="/svg/left.svg"
-                    alt="return"
-                  />
-                </Button>
-
-                <Button
-                  className={styles.btn}
-                  handleFunction={handleAddToOrder}
-                >
-                  <img src="/svg/accept.svg" className={styles.btn__add} />
-                </Button>
-              </div>
             </div>
           </div>
         </>

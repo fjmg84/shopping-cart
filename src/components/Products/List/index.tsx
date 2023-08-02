@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../redux/stores/hooks";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { ProductCart, ProductState } from "../../../type/products";
 import Button from "../../Common/Buttons";
 import Image from "../../Common/Image";
@@ -17,7 +17,6 @@ const ListProduct = ({ products }: Props) => {
   const [productsList, setProductList] = useState<ProductCart[]>([]);
   const { cart } = useAppSelector((state) => state.products);
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (products) {
@@ -57,15 +56,8 @@ const ListProduct = ({ products }: Props) => {
               </div>
 
               <div className={styles.product__footer}>
-                {count && count > 0 ? (
+                {count > 0 && (
                   <>
-                    <Button
-                      className={`${styles.btn} ${styles.btn_add}`}
-                      handleFunction={() => navigate(`product/${id}`)}
-                    >
-                      <span>edit</span>
-                    </Button>
-
                     <Button
                       className={`${styles.btn} ${styles.btn_remove}`}
                       handleFunction={() => removeProductOfCart(id)}
@@ -73,14 +65,13 @@ const ListProduct = ({ products }: Props) => {
                       <span>remove</span>
                     </Button>
                   </>
-                ) : (
-                  <Button
-                    className={`${styles.btn} ${styles.btn_add}`}
-                    handleFunction={() => navigate(`product/${id}`)}
-                  >
-                    <span>view</span>
-                  </Button>
                 )}
+                <Link
+                  className={`${styles.btn} ${styles.btn_add}`}
+                  to={`product/${id}`}
+                >
+                  <span>{count > 0 ? "edit" : "view"}</span>
+                </Link>
               </div>
             </article>
           );
