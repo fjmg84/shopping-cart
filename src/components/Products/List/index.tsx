@@ -36,8 +36,7 @@ const ListProduct = ({ products }: Props) => {
     <div className={styles.container}>
       <section className={styles.container__product}>
         {productsList.map((product) => {
-          const { id, title, price, description, image, count, rating } =
-            product;
+          const { id, title, price, image, count, rating } = product;
           return (
             <article key={id} className={styles.product}>
               <div className={styles.product__header}>
@@ -52,7 +51,6 @@ const ListProduct = ({ products }: Props) => {
 
               <div className={styles.product__body}>
                 <Text text={title} myClassName={styles.title} />
-                <Text text={description} myClassName={styles.description} />
               </div>
 
               <div className={styles.product__footer}>
