@@ -3,17 +3,24 @@ import Button from "../Buttons";
 import useCounter from "../../../hooks/useCounter";
 import styles from "./styles.module.scss";
 import useStateCart from "../../../hooks/useStateCart";
+import { ProductCart } from "../../../type/products";
 
-const Counter = ({ count, price }: { count: number; price: number }) => {
-  const { product, updateProduct } = useStateCart();
+type Props = {
+  product: ProductCart;
+};
+
+const Counter = ({ product }: Props) => {
+  const { count, price, id } = product;
+  const { updateProduct, removeProduct } = useStateCart();
   const { counter, increment, reset, decrement } = useCounter({ count });
 
   useEffect(() => {
-    if (product)
+    if (counter > 0)
       updateProduct({
         ...product,
         count: counter,
       });
+    else removeProduct(id);
   }, [counter]);
 
   return (

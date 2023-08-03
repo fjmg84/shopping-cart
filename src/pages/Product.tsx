@@ -5,8 +5,7 @@ import { ProductCart } from "../type/products";
 import Error from "../components/Common/Error404";
 import { useGetProductByIdQuery } from "../redux/queries/products";
 import Loading from "../components/Common/Loading";
-import useStateCart from "../hooks/useStateCart";
-//import product from "../data/data.json";
+//import products from "../data/data.json";
 
 function Product() {
   const [newProduct, setNewProduct] = useState<ProductCart>();
@@ -17,13 +16,19 @@ function Product() {
     isError,
   } = useGetProductByIdQuery(productId);
 
-  const { selectedProduct } = useStateCart();
+  /* useEffect(() => {
+    if (productId) {
+      const productDisplay = products.find(
+        (product) => product.id === +productId
+      );
+      if (productDisplay) setNewProduct({ ...productDisplay, count: 0 });
+    }
+  }, [productId]); */
 
   useEffect(() => {
     if (product) {
       const prod = { ...product, count: 0 };
       setNewProduct(prod);
-      selectedProduct(prod);
     }
   }, [product]);
 

@@ -16,6 +16,5 @@ export interface ProductCart extends ProductState {
 }
 
 export interface ListProductState {
-    product: ProductCart;
     cart: ProductCart[];
 }

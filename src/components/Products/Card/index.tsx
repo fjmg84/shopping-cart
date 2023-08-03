@@ -1,25 +1,15 @@
 import { ProductCart } from "../../../type/products";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import Button from "../../Common/Buttons";
 import Counter from "../../Common/Counter";
 import Image from "../../Common/Image";
 import Rate from "../../Common/Rate";
 import Text from "../../Common/Text";
-import useStateCart from "../../../hooks/useStateCart";
 import styles from "./styles.module.scss";
 
 type Props = {
   product: ProductCart;
 };
 function ProductCard({ product }: Props) {
-  const { title, price, image, count, description, category, rating } = product;
-  const { addToCart } = useStateCart();
-
-  const handleAddToCart = () => {
-    addToCart();
-    toast("Action complete success");
-  };
+  const { title, price, image, description, category, rating } = product;
 
   return (
     <div className={styles.container}>
@@ -40,14 +30,7 @@ function ProductCard({ product }: Props) {
 
         <Text text={`votos ${rating.count}`} />
 
-        <Counter count={count} price={price} />
-
-        <Button className={styles.btn} handleFunction={handleAddToCart}>
-          <>
-            <span>add / remove to cart</span>
-            <ToastContainer theme="dark" />
-          </>
-        </Button>
+        <Counter product={product} />
       </div>
     </div>
   );
