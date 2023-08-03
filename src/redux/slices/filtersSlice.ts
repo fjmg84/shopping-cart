@@ -23,22 +23,22 @@ export const filtersSlice = createSlice({
     name: "filters",
     initialState,
     reducers: {
-        addCategories: (state, action: PayloadAction<string[]>) => {
+        createCategory: (state, action: PayloadAction<string[]>) => {
             state.categories.list = [...action.payload]
         },
-        selectCategory: (state, action: PayloadAction<string>) => {
+        selectedCategory: (state, action: PayloadAction<string>) => {
             state.categories.select = action.payload
         },
-        changePrice: (state, action: PayloadAction<string>) => {
+        filterPrice: (state, action: PayloadAction<string>) => {
             state.price = action.payload
         }
     },
 });
 
 export const {
-    addCategories,
-    selectCategory,
-    changePrice
+    createCategory,
+    selectedCategory,
+    filterPrice
 } = filtersSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type

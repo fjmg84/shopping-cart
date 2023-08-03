@@ -3,6 +3,7 @@ import { useAppSelector } from "../../../redux/stores/hooks";
 import { Link } from "react-router-dom";
 import ProductCard from "../Card";
 import { ProductCart } from "../../../type/products";
+import useStateCart from "../../../hooks/useStateCart";
 import styles from "./styles.module.scss";
 
 type Props = {
@@ -10,7 +11,7 @@ type Props = {
 };
 const ShowProduct = ({ product }: Props) => {
   const [newProduct, setNewProduct] = useState<ProductCart>();
-  const { cart } = useAppSelector((state) => state.products);
+  const { cart } = useStateCart();
 
   useEffect(() => {
     const productFind = cart.find(({ id }) => id === product?.id);

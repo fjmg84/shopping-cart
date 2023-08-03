@@ -1,22 +1,20 @@
-import { changePrice, selectCategory } from "../../redux/slices/filtersSlice";
-import { useAppDispatch, useAppSelector } from "../../redux/stores/hooks";
+import useStateFilters from "../../hooks/useStateFilters";
 import ListCategories from "./Categories";
 import FilterPrices from "./Prices";
 
 function Filters() {
-  const { categories } = useAppSelector((state) => state.filters);
-  const dispatch = useAppDispatch();
+  const { categories, categorySelect, filterByPrice } = useStateFilters();
 
   const handleSelectCategory = (category: string) => {
-    dispatch(selectCategory(category));
+    categorySelect(category);
   };
 
   const handleMinorToMajorPrice = () => {
-    dispatch(changePrice("<"));
+    filterByPrice("<");
   };
 
   const handleMajorToMinorPrice = () => {
-    dispatch(changePrice(">"));
+    filterByPrice(">");
   };
 
   return (

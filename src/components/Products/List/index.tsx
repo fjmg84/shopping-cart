@@ -1,22 +1,20 @@
 import { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../../redux/stores/hooks";
 import { Link } from "react-router-dom";
 import { ProductCart, ProductState } from "../../../type/products";
 import Button from "../../Common/Buttons";
 import Image from "../../Common/Image";
 import Text from "../../Common/Text";
-import { remove } from "../../../redux/slices/productSlice";
 import { createListOutDuplicate } from "../../../services/funtion";
 import Rate from "../../Common/Rate";
 import styles from "./styles.module.scss";
+import useStateCart from "../../../hooks/useStateCart";
 
 type Props = {
   products: ProductState[] | undefined;
 };
 const ListProduct = ({ products }: Props) => {
   const [productsList, setProductList] = useState<ProductCart[]>([]);
-  const { cart } = useAppSelector((state) => state.products);
-  const dispatch = useAppDispatch();
+  const { cart, removeProduct } = useStateCart();
 
   useEffect(() => {
     if (products) {
@@ -27,10 +25,6 @@ const ListProduct = ({ products }: Props) => {
       setProductList(list);
     }
   }, [products, cart]);
-
-  const removeProductOfCart = (id: number) => {
-    dispatch(remove(id));
-  };
 
   return (
     <div className={styles.container__product}>
@@ -56,7 +50,7 @@ const ListProduct = ({ products }: Props) => {
                 <>
                   <Button
                     className={`${styles.btn} ${styles.btn_remove}`}
-                    handleFunction={() => removeProductOfCart(id)}
+                    handleFunction={() => removeProduct(id)}
                   >
                     <span>remove</span>
                   </Button>

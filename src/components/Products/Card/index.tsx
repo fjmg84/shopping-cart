@@ -1,5 +1,3 @@
-import { addToOrder } from "../../../redux/slices/productSlice";
-import { useAppDispatch } from "../../../redux/stores/hooks";
 import { ProductCart } from "../../../type/products";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -8,6 +6,7 @@ import Counter from "../../Common/Counter";
 import Image from "../../Common/Image";
 import Rate from "../../Common/Rate";
 import Text from "../../Common/Text";
+import useStateCart from "../../../hooks/useStateCart";
 import styles from "./styles.module.scss";
 
 type Props = {
@@ -15,10 +14,10 @@ type Props = {
 };
 function ProductCard({ product }: Props) {
   const { title, price, image, count, description, category, rating } = product;
-  const dispatch = useAppDispatch();
+  const { addToCart } = useStateCart();
 
   const handleAddToCart = () => {
-    dispatch(addToOrder());
+    addToCart();
     toast("Action complete success");
   };
 

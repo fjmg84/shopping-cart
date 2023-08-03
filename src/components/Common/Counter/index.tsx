@@ -1,23 +1,19 @@
-import { useAppDispatch, useAppSelector } from "../../../redux/stores/hooks";
 import { useEffect } from "react";
 import Button from "../Buttons";
 import useCounter from "../../../hooks/useCounter";
-import { update } from "../../../redux/slices/productSlice";
 import styles from "./styles.module.scss";
+import useStateCart from "../../../hooks/useStateCart";
 
 const Counter = ({ count, price }: { count: number; price: number }) => {
-  const { product } = useAppSelector((state) => state.products);
+  const { product, updateProduct } = useStateCart();
   const { counter, increment, reset, decrement } = useCounter({ count });
-  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (product)
-      dispatch(
-        update({
-          ...product,
-          count: counter,
-        })
-      );
+      updateProduct({
+        ...product,
+        count: counter,
+      });
   }, [counter]);
 
   return (

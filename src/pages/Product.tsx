@@ -1,12 +1,11 @@
-import { useAppDispatch } from "../redux/stores/hooks";
 import ShowProduct from "../components/Products/Show";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { ProductCart } from "../type/products";
 import Error from "../components/Common/Error404";
 import { useGetProductByIdQuery } from "../redux/queries/products";
-import { selected } from "../redux/slices/productSlice";
 import Loading from "../components/Common/Loading";
+import useStateCart from "../hooks/useStateCart";
 //import product from "../data/data.json";
 
 function Product() {
@@ -18,13 +17,13 @@ function Product() {
     isError,
   } = useGetProductByIdQuery(productId);
 
-  const dispatch = useAppDispatch();
+  const { selectedProduct } = useStateCart();
 
   useEffect(() => {
     if (product) {
       const prod = { ...product, count: 0 };
       setNewProduct(prod);
-      dispatch(selected(prod));
+      selectedProduct(prod);
     }
   }, [product]);
 

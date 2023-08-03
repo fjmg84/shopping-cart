@@ -6,22 +6,23 @@ import Error from "../components/Common/Error404";
 //import products from "../data/data.json";
 import { useEffect, useRef, useState } from "react";
 import { createListCategories, orderArray } from "../services/funtion";
-import { useAppDispatch, useAppSelector } from "../redux/stores/hooks";
-import { TYPE_CATEGORY, addCategories } from "../redux/slices/filtersSlice";
+import { TYPE_CATEGORY } from "../redux/slices/filtersSlice";
 import Filters from "../components/Filter";
 import { ProductState } from "../type/products";
 import Button from "../components/Common/Buttons";
+import useStateFilters from "../hooks/useStateFilters";
 
 const App = () => {
   const { data: products = [], isLoading, isError } = useGetProductsQuery();
   const [listProducts, setListProducts] = useState<ProductState[]>([]);
   const [stateButton, setStateButton] = useState("fa fa-arrow-right");
-  const dispatch = useAppDispatch();
+  const asideRef = useRef<HTMLElement>(null);
+
   const {
     categories: { select: filterCategory },
     price: filterPrice,
-  } = useAppSelector((state) => state.filters);
-  const asideRef = useRef<HTMLElement>(null);
+    categoriesList,
+  } = useStateFilters();
 
   useEffect(() => {
     if (products.length > 0) setListProducts(products);
@@ -29,8 +30,7 @@ const App = () => {
 
   useEffect(() => {
     const listCategories = createListCategories(listProducts);
-    if (listCategories)
-      dispatch(addCategories([TYPE_CATEGORY, ...listCategories]));
+    if (listCategories) categoriesList([TYPE_CATEGORY, ...listCategories]);
   }, [listProducts]);
 
   const filterProducts = (products: ProductState[] = []) => {
