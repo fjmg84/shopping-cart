@@ -6,9 +6,9 @@ interface PropImage {
 
 function Image({ src, alt, className }: PropImage) {
   return (
-    <>
-      <img src={src} alt={alt} className={className} />
-    </>
+    <picture className={className}>
+      <img src={src} alt={alt} />
+    </picture>
   );
 }
 

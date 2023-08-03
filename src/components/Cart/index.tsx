@@ -19,42 +19,40 @@ const Cart = () => {
   const removeProductOfCart = (id: number) => dispatch(remove(id));
 
   return (
-    <>
-      <div className={styles.car}>
-        <div className={styles.car__container}>
-          <div className={styles.order}>
-            {cart.map((product, item) => {
-              const { id, image, price, count } = product;
-              return (
-                <div
-                  key={item}
-                  className={`${styles.order_container} order_${id}`}
+    <div className={styles.cart__container}>
+      <div className={styles.order}>
+        {cart.map((product, item) => {
+          const { id, image, price, count } = product;
+          return (
+            <div key={item} className={styles.order__container}>
+              <div className={styles.order__button}>
+                <Button
+                  handleFunction={() => removeProductOfCart(id)}
+                  className={styles.order__close}
                 >
-                  <Button
-                    handleFunction={() => removeProductOfCart(id)}
-                    className={styles.order_close}
-                  >
-                    <img src="/svg/close.svg" alt="/svg/close.svg" />
-                  </Button>
+                  <img src="/svg/close.svg" alt="/svg/close.svg" />
+                </Button>
+              </div>
 
-                  <div className={styles.order_image}>
-                    <span className={styles.order_count}>{count}</span>
-                    <Image src={image} alt={image} />
-                  </div>
-                  <p className={styles.order_to_pay}>${price * count}</p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-
-        <div className={styles.toPay}>
-          <h4>
-            to pay: <small>${totalToPay}</small>
-          </h4>
-        </div>
+              <div className={styles.order__body}>
+                <strong>{count}</strong>
+                <Image
+                  className={styles.order__image}
+                  src={image}
+                  alt={image}
+                />
+              </div>
+              <p className={styles.order__to__pay}>${price * count}</p>
+            </div>
+          );
+        })}
       </div>
-    </>
+      <div className={styles.to__pay}>
+        <h4>
+          to pay: <small>${totalToPay}</small>
+        </h4>
+      </div>
+    </div>
   );
 };
 

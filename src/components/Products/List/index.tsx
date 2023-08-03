@@ -33,48 +33,45 @@ const ListProduct = ({ products }: Props) => {
   };
 
   return (
-    <div className={styles.container}>
-      <section className={styles.container__product}>
-        {productsList.map((product) => {
-          const { id, title, price, image, count, rating } = product;
-          return (
-            <article key={id} className={styles.product}>
-              <div className={styles.product__header}>
-                <div className={styles.image}>
-                  <Image src={image} alt={title} />
-                </div>
-                <Text text={`$${price}`} myClassName={styles.price} />
-                <div className={styles.rate}>
-                  <Rate count={rating.rate} />
-                </div>
-              </div>
+    <div className={styles.container__product}>
+      {productsList.map((product) => {
+        const { id, title, price, image, count, rating } = product;
+        return (
+          <article key={id} className={styles.product}>
+            <div className={styles.product__header}>
+              <Image className={styles.image} src={image} alt={title} />
 
-              <div className={styles.product__body}>
-                <Text text={title} myClassName={styles.title} />
+              <Text text={`$${price}`} myClassName={styles.price} />
+              <div className={styles.rate}>
+                <Rate count={rating.rate} />
               </div>
+            </div>
 
-              <div className={styles.product__footer}>
-                {count > 0 && (
-                  <>
-                    <Button
-                      className={`${styles.btn} ${styles.btn_remove}`}
-                      handleFunction={() => removeProductOfCart(id)}
-                    >
-                      <span>remove</span>
-                    </Button>
-                  </>
-                )}
-                <Link
-                  className={`${styles.btn} ${styles.btn_add}`}
-                  to={`product/${id}`}
-                >
-                  <span>{count > 0 ? "edit" : "view"}</span>
-                </Link>
-              </div>
-            </article>
-          );
-        })}
-      </section>
+            <div className={styles.product__body}>
+              <Text text={title} myClassName={styles.title} />
+            </div>
+
+            <div className={styles.product__footer}>
+              {count > 0 && (
+                <>
+                  <Button
+                    className={`${styles.btn} ${styles.btn_remove}`}
+                    handleFunction={() => removeProductOfCart(id)}
+                  >
+                    <span>remove</span>
+                  </Button>
+                </>
+              )}
+              <Link
+                className={`${styles.btn} ${styles.btn_add}`}
+                to={`product/${id}`}
+              >
+                <span>{count > 0 ? "edit" : "view"}</span>
+              </Link>
+            </div>
+          </article>
+        );
+      })}
     </div>
   );
 };

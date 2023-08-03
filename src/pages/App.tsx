@@ -13,13 +13,8 @@ import { ProductState } from "../type/products";
 import Button from "../components/Common/Buttons";
 
 const App = () => {
-  const {
-    data: products = [],
-    isLoading,
-    isError,
-    isSuccess,
-  } = useGetProductsQuery();
-  const [listProducts, setListProducts] = useState<ProductState[]>(products);
+  const { data: products = [], isLoading, isError } = useGetProductsQuery();
+  const [listProducts, setListProducts] = useState<ProductState[]>([]);
   const [stateButton, setStateButton] = useState("fa fa-arrow-right");
   const dispatch = useAppDispatch();
   const {
@@ -29,8 +24,8 @@ const App = () => {
   const asideRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    if (isSuccess) setListProducts(products);
-  }, [isSuccess]);
+    if (products.length > 0) setListProducts(products);
+  }, [products]);
 
   useEffect(() => {
     const listCategories = createListCategories(listProducts);
@@ -77,16 +72,24 @@ const App = () => {
       </Button>
 
       <aside ref={asideRef}>
-        <Cart />
+        <div className="cart">
+          <Cart />
+        </div>
       </aside>
 
       <main>
-        <section className="header">
-          <h1>You E-Commerce</h1>
-          <Filters />
-          <p>products in list {listProductFilters.length}</p>
+        <section>
+          <div className="header">
+            <h1>You E-Commerce</h1>
+            <Filters />
+            <p>products in list {listProductFilters.length}</p>
+          </div>
         </section>
-        <ListProduct products={listProductFilters} />
+        <section>
+          <div className="products">
+            <ListProduct products={listProductFilters} />
+          </div>
+        </section>
       </main>
     </div>
   );
