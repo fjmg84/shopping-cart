@@ -7,7 +7,6 @@ import { useGetProductByIdQuery } from "../redux/queries/products";
 import Loading from "../components/Common/Loading";
 
 function Product() {
-  const [newProduct, setNewProduct] = useState<ProductCart>();
   const { productId } = useParams();
   const {
     data: product,
@@ -15,18 +14,11 @@ function Product() {
     isError,
   } = useGetProductByIdQuery(productId);
 
-  useEffect(() => {
-    if (product) {
-      const prod = { ...product, count: 0 };
-      setNewProduct(prod);
-    }
-  }, [product]);
-
   if (isLoading) return <Loading />;
 
   if (isError) return <Error message="Product not found" error={404} />;
 
-  return <ShowProduct product={newProduct} />;
+  return product ? <ShowProduct {...product} /> : "";
 }
 
 export default Product;

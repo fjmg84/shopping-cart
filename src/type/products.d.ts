@@ -12,7 +12,7 @@ export interface ProductState {
 }
 
 export interface ProductCart extends ProductState {
-    count: number;
+    count?: number;
 }
 
 export interface ListProductState {
