@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import styles from "./styles.module.scss";
 
 function Rate({ count = 5 }) {
   const [stars, setStars] = useState<string[]>([]);
@@ -9,14 +8,14 @@ function Rate({ count = 5 }) {
     for (let i = 1; i <= 5; i++) {
       tempRates = [
         ...tempRates,
-        `fa fa-star ${i <= count ? styles.colorFill : styles.colorOutFill}`,
+        `fa fa-star ${i <= count ? "text-amber-300" : "text-slate-950"}`,
       ];
     }
     setStars(tempRates);
   }, [count]);
 
   return (
-    <div className={styles.container}>
+    <div>
       {stars.map((star, index) => (
         <i key={index} className={star}></i>
       ))}

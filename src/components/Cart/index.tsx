@@ -1,54 +1,44 @@
-import { useEffect, useState } from "react";
-import Image from "../Common/Image";
-import Button from "../Common/Buttons";
-import { totalImportToPay } from "../../services/funtion";
-import styles from "./styles.module.scss";
 import useStateCart from "../../hooks/useStateCart";
 
 const Cart = () => {
-  const [totalToPay, setTotalToPay] = useState(0);
   const { cart, removeProduct } = useStateCart();
 
-  useEffect(() => {
-    const toPay = totalImportToPay(cart);
-    setTotalToPay(toPay);
-  }, [cart]);
-
   return (
-    <div className={styles.cart__container}>
-      <div className={styles.order}>
-        {cart.map((product, item) => {
-          const { id, image, price, count } = product;
-          return (
-            <div key={item} className={styles.order__container}>
-              <div className={styles.order__button}>
-                <Button
-                  handleFunction={() => removeProduct(id)}
-                  className={styles.order__close}
+    <>
+      {cart.length > 0 ? (
+        <div className=" flex flex-wrap w-full gap-4 justify-center pt-32 pb-40">
+          {cart.map((product) => {
+            const { id, image, price, count } = product;
+            return (
+              <article key={id} className="relative bg-violet-200 rounded-md">
+                <div
+                  key={id}
+                  className="bg-white rounded-md flex items-center shadow-lg justify-center flex-col w-36 h-auto m-2"
                 >
-                  <img src="/svg/close.svg" alt="/svg/close.svg" />
-                </Button>
-              </div>
+                  {
+                    <button
+                      onClick={() => removeProduct(id)}
+                      className="w-10 h-10 p-2 absolute -right-2 -top-2 bg-red-500 hover:bg-red-700 hover:rotate-180 transition-all rounded-full"
+                    >
+                      <img src="/svg/close.svg" alt="/svg/close.svg" />
+                    </button>
+                  }
 
-              <div className={styles.order__body}>
-                <strong>{count}</strong>
-                <Image
-                  className={styles.order__image}
-                  src={image}
-                  alt={image}
-                />
-              </div>
-              <p className={styles.order__to__pay}>${price * count}</p>
-            </div>
-          );
-        })}
-      </div>
-      <div className={styles.to__pay}>
-        <h4>
-          to pay: <small>${totalToPay}</small>
-        </h4>
-      </div>
-    </div>
+                  <strong className="p-2">{count}</strong>
+                  <img src={image} alt={image} className="h-20 w-auto" />
+
+                  <p className="p-2">${price * count}</p>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      ) : (
+        <p className="text-white text-center">
+          There are no products in the cart
+        </p>
+      )}
+    </>
   );
 };
 

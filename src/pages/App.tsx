@@ -1,22 +1,23 @@
+import { useEffect, useRef, useState } from "react";
 import ListProduct from "../components/Products/List";
 import Cart from "../components/Cart";
 import { useGetProductsQuery } from "../redux/queries/products";
 import Loading from "../components/Common/Loading";
 import Error from "../components/Common/Error404";
-//import products from "../data/data.json";
-import { useEffect, useRef, useState } from "react";
 import { createListCategories, orderArray } from "../services/funtion";
 import { TYPE_CATEGORY } from "../redux/slices/filtersSlice";
-import Filters from "../components/Filter";
 import { ProductState } from "../type/products";
-import Button from "../components/Common/Buttons";
 import useStateFilters from "../hooks/useStateFilters";
+import { MdiMenu } from "../components/Common/icons";
+import HeaderDetails from "../components/Common/header-filters";
+import CarBtn from "../components/Common/car-button";
 
 const App = () => {
   const { data: products = [], isLoading, isError } = useGetProductsQuery();
-  const [listProducts, setListProducts] = useState<ProductState[]>([]);
-  const [stateButton, setStateButton] = useState("fa fa-arrow-right");
-  const asideRef = useRef<HTMLElement>(null);
+  const [listProducts, setListProducts] = useState<ProductState[]>(products);
+
+  const menuRef = useRef<HTMLElement>(null);
+  const carRef = useRef<HTMLElement>(null);
 
   const {
     categories: { select: filterCategory },
@@ -25,13 +26,12 @@ const App = () => {
   } = useStateFilters();
 
   useEffect(() => {
-    if (products.length > 0) setListProducts(products);
+    if (products.length > 0) {
+      setListProducts(products);
+      const listCategories = createListCategories(products);
+      if (listCategories) categoriesList([TYPE_CATEGORY, ...listCategories]);
+    }
   }, [products]);
-
-  useEffect(() => {
-    const listCategories = createListCategories(listProducts);
-    if (listCategories) categoriesList([TYPE_CATEGORY, ...listCategories]);
-  }, [listProducts]);
 
   const filterProducts = (products: ProductState[] = []) => {
     let result = products.filter(
@@ -51,12 +51,15 @@ const App = () => {
 
   const listProductFilters = filterProducts(listProducts);
 
-  const handleToggleCart = () => {
-    asideRef?.current?.classList.toggle("visible");
+  const toggleMenu = () => {
+    menuRef?.current?.classList.toggle("-translate-x-full");
+    carRef?.current?.classList.add("translate-x-full");
+  };
 
-    asideRef?.current?.classList.contains("visible")
-      ? setStateButton("fa fa-arrow-left")
-      : setStateButton("fa fa-arrow-right");
+  const toggleCar = () => {
+    carRef?.current?.classList.toggle("translate-x-full");
+    carRef?.current?.classList.add("md:right-0");
+    menuRef?.current?.classList.add("-translate-x-full");
   };
 
   if (isLoading) return <Loading />;
@@ -66,30 +69,41 @@ const App = () => {
   }
 
   return (
-    <div className="container">
-      <Button className="menu" handleFunction={handleToggleCart}>
-        <i className={stateButton}></i>
-      </Button>
+    <div className="min-h-screen">
+      <header className="z-40 sticky top-0 h-20 w-full p-5 backdrop-blur-lg ">
+        <section className="hidden md:flex flex-wrap justify-between items-center">
+          <HeaderDetails listProducts={listProductFilters} />
 
-      <aside ref={asideRef}>
-        <div className="cart">
+          <CarBtn onClick={toggleCar} />
+        </section>
+
+        <section className="flex justify-between md:hidden">
+          <button onClick={toggleMenu}>
+            <MdiMenu width="2rem" height="2rem" />
+          </button>
+
+          <CarBtn onClick={toggleCar} />
+        </section>
+      </header>
+
+      <aside>
+        <section
+          ref={menuRef}
+          className="md:hidden z-40 p-10 bg-slate-950 fixed w-full h-full flex flex-col gap-10 justify-center items-center transition-transform -translate-x-full"
+        >
+          <HeaderDetails listProducts={listProductFilters} />
+        </section>
+
+        <section
+          ref={carRef}
+          className="z-40 p-2 bg-slate-950 h-full fixed w-full lg:w-1/2 flex flex-wrap items-center justify-center transition-transform overflow-auto translate-x-full md:right-0"
+        >
           <Cart />
-        </div>
+        </section>
       </aside>
 
-      <main>
-        <section>
-          <div className="header">
-            <h1>You E-Commerce</h1>
-            <Filters />
-            <p>products in list {listProductFilters.length}</p>
-          </div>
-        </section>
-        <section>
-          <div className="products">
-            <ListProduct products={listProductFilters} />
-          </div>
-        </section>
+      <main className="h-full pb-5 pt-5 md:pb-10 md:pt-10 relative">
+        <ListProduct products={listProductFilters} />
       </main>
     </div>
   );

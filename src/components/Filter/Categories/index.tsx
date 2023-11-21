@@ -1,5 +1,4 @@
 import React from "react";
-import styles from "./styles.module.scss";
 
 type Props = {
   categories: string[];
@@ -12,13 +11,14 @@ function ListCategories({ categories = [], onChange }: Props) {
   };
 
   return (
-    <div className={styles.select}>
-      <select onChange={handleChange}>
-        {categories.map((category, item) => {
-          return <option key={item}>{category}</option>;
-        })}
-      </select>
-    </div>
+    <select
+      onChange={handleChange}
+      className="text-slate-300 p-3 bg-slate-950 border-0"
+    >
+      {categories.map((category, item) => {
+        return <option key={item}>{category}</option>;
+      })}
+    </select>
   );
 }
 

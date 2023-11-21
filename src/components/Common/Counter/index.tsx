@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import Button from "../Buttons";
 import useCounter from "../../../hooks/useCounter";
-import styles from "./styles.module.scss";
+
 import useStateCart from "../../../hooks/useStateCart";
 import { ProductCart } from "../../../type/products";
 
@@ -24,21 +24,21 @@ const Counter = ({ product }: Props) => {
   }, [counter]);
 
   return (
-    <div className={styles.container}>
-      <div className={styles.count}>
+    <div >
+      <div >
         <span>
           {counter} / {counter * price}
         </span>
       </div>
 
-      <div className={styles.btn__container}>
-        <Button className={styles.btn} handleFunction={() => increment(1)}>
+      <div >
+        <Button handleFunction={() => increment(1)}>
           <span>+</span>
         </Button>
-        <Button className={styles.btn} handleFunction={reset}>
+        <Button  handleFunction={reset}>
           <span>reset</span>
         </Button>
-        <Button className={styles.btn} handleFunction={() => decrement(1)}>
+        <Button handleFunction={() => decrement(1)}>
           <span>-</span>
         </Button>
       </div>

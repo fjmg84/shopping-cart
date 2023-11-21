@@ -1,5 +1,3 @@
-import styles from "./styles.module.scss";
-
 type Props = {
   text: string;
   myClassName?: string;
@@ -7,7 +5,7 @@ type Props = {
 };
 const Text = ({ text, myClassName, children }: Props) => {
   return (
-    <div className={styles.container}>
+    <div>
       <p className={myClassName}>{text}</p>
       {children}
     </div>

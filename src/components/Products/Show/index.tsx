@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import ProductCard from "../Card";
 import { ProductCart } from "../../../type/products";
 import useStateCart from "../../../hooks/useStateCart";
-import styles from "./styles.module.scss";
+
 
 type Props = {
   product: ProductCart | undefined;
@@ -24,14 +24,14 @@ const ShowProduct = ({ product }: Props) => {
     <>
       {newProduct && (
         <>
-          <div className={styles.container}>
-            <div className={styles.container__to__back}>
-              <Link className={styles.link__to__back} to="/">
+          <div >
+            <div >
+              <Link  to="/">
                 <i className="fa fa-arrow-left"></i>
               </Link>
               Back to home
             </div>
-            <div className={styles.product}>
+            <div >
               <ProductCard product={newProduct} />
             </div>
           </div>
