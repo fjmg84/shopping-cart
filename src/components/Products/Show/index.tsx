@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-import { useAppSelector } from "../../../redux/stores/hooks";
 import { Link } from "react-router-dom";
 import ProductCard from "../Card";
-import { ProductCart, ProductState } from "../../../type/products";
+import { ProductState } from "../../../type/products";
 import useStateCart from "../../../hooks/useStateCart";
 
 const ShowProduct = (product: ProductState) => {

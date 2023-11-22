@@ -4,6 +4,7 @@ type Props = {
     array1: ProductState[],
     array2: ProductCart[]
 }
+
 export const createListOutDuplicate = ({
     array1,
     array2,
@@ -29,7 +30,7 @@ export const totalImportToPay = (arr: ProductCart[] = []) => {
     let total = 0;
     arr.forEach((product) => {
         const { price, count } = product;
-        if (price) total = price * count + total;
+        if (price && count) total = price * count + total;
     });
 
     return total;
@@ -39,7 +40,7 @@ export const totalImportToPay = (arr: ProductCart[] = []) => {
 export const createListCategories = (arrProducts: ProductState[]) => {
     let listCategories: Set<string> = new Set();
 
-    if (arrProducts.length === 0) return;
+    if (arrProducts.length === 0) return [];
 
     for (let { category } of arrProducts) listCategories.add(category);
 
